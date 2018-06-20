@@ -16,6 +16,8 @@ class Employee extends Node {
    */
   protected $table = 'employees';
 
+    protected $visible = ['id', 'children', 'full_name', 'position', 'start_date', 'salary', 'text'];
+
   //////////////////////////////////////////////////////////////////////////////
 
   //

@@ -25,6 +25,10 @@ class CreateEmployeesTable extends Migration {
 
       // Add needed columns here (f.ex: name, slug, path, etc.)
       // $table->string('name', 255);
+      $table->string('full_name', 255);
+      $table->string('position', 255);
+      $table->date('start_date');
+      $table->decimal('salary', 7, 2);
 
       $table->timestamps();
     });
