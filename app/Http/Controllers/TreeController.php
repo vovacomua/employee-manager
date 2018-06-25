@@ -12,7 +12,7 @@ class TreeController extends Controller
     public function index()
 
 	{
-    	return view('tree');
+    	return view('tree.tree');
 	}
 
 
