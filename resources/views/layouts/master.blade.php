@@ -22,16 +22,7 @@
 
     <div class="container">
 
-      <div class="card mt-2">
-        <div class="card-header">
-          Employees Tree
-        </div>
-        <div class="card-body">
-
-              @yield('content') 
-
-        </div>
-      </div>
+      @yield('content') 
 
     </div>
 

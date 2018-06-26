@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/', 'TreeController@index');
+Route::get('/', 'TreeController@index')->name('home');
 
 Route::get('/showtree', 'TreeController@showTree');
+
+
+
+Route::get('/register', 'RegistrationController@create');
+
+Route::post('/register', 'RegistrationController@store');
+
+Route::get('/login', 'SessionsController@create')->name('login');
+
+Route::post('/login', 'SessionsController@store');
+
+Route::get('/logout', 'SessionsController@destroy');
+
+
+Route::get('/restricted', 'ListController@index')->name('list');

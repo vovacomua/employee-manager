@@ -11,7 +11,21 @@
 
 @section('content')
 
-	<div id="container"></div>
+	<div class="card mt-2">
+
+      <div class="card-header">
+         Employees Tree
+      </div>
+
+      <div class="card-body">
+
+       	<div id="container"></div>
+              
+      </div>
+
+    </div>
+
+	
 	  <script>
 	    $(function() {
 	      $('#container').jstree({
