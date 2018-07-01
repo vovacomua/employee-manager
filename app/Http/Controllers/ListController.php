@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Employee;
 
 class ListController extends Controller
 {
@@ -13,10 +14,19 @@ class ListController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
 
 	{
-    	return view('list.list');
+		$input = $request->all();
+        
+		//set default values
+        $field = $request->input('field', 'id');
+        $order = $request->input('order', 'asc');
+
+        $employees = Employee::orderBy($field, $order)->get();
+
+        return view('list.list', compact('employees'));
+
 	}
 
 }
