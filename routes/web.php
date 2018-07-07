@@ -29,3 +29,7 @@ Route::get('/logout', 'SessionsController@destroy');
 
 
 Route::get('/restricted', 'ListController@index')->name('list');
+
+Route::get('/restricted/order', 'ListController@order')->name('order');
+
+Route::get('/restricted/search', 'ListController@search')->name('search');
