@@ -39,7 +39,7 @@ class ListController extends Controller
         
         $employees = Employee::orderBy($field, $order)->get(); 
 
-        return view('list.list', compact('employees'));
+        echo $this->renderOutput($employees);
     }
 
 
@@ -52,7 +52,46 @@ class ListController extends Controller
         $search_value = $request->input('search_value');
         $employees = Employee::where($search_field, '=', $search_value)->get(); 
 
-        return view('list.list', compact('employees'));
+        echo $this->renderOutput($employees);
+    }
+
+    private function renderOutput($collection)
+
+    {
+
+        $output = '';
+
+        if ($collection->isNotEmpty()){
+
+            foreach ($collection->chunk(50) as $chunk) {
+
+                foreach ($chunk as $row) {
+                   $output .= '
+                    <tr>
+                     <td>'.$row->id.'</td>
+                     <td>'.$row->parent_id.'</td>
+                     <td>'.$row->full_name.'</td>
+                     <td>'.$row->position.'</td>
+                     <td>'.$row->start_date.'</td>
+                     <td>'.$row->salary.'</td>
+                    </tr>
+                    ';
+                   } 
+                   
+                }
+
+        } else {
+
+            $output = '
+               <tr>
+                <td align="center" colspan="6">No Data Found</td>
+               </tr>
+               ';
+
+        } 
+
+        return json_encode($output);
+
     }
 
 }

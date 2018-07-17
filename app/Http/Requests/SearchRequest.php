@@ -29,22 +29,22 @@ class SearchRequest extends FormRequest
 
         switch ($this->query('search_field')) {
             case 'id':
-                $rules['search_value'] = 'required|numeric|digits_between:1,5';
+                $rules['search_value'] = 'required|numeric|digits_between:1,10';
                 break;
             case 'parent_id':
-                $rules['search_value'] = 'required|numeric|digits_between:1,5';
+                $rules['search_value'] = 'required|numeric|digits_between:1,10';
                 break;
             case 'full_name':
-                $rules['search_value'] = 'required|alpha|max:255';
+                $rules['search_value'] = 'required|max:255';
                 break;
             case 'position':
-                $rules['search_value'] = 'required|alpha_num|max:255';
+                $rules['search_value'] = 'required|max:255';
                 break;
             case 'start_date':
                 $rules['search_value'] = 'required|date';
                 break;  
             case 'salary':
-                $rules['search_value'] = 'required|numeric|digits_between:1,7';
+                $rules['search_value'] = 'required|regex:/^\d{1,5}(\.\d{2})?$/';
                 break;  
         }
 
