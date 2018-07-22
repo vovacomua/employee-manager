@@ -28,8 +28,10 @@ Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
 
 
-Route::get('/restricted', 'ListController@index')->name('list');
+Route::get('/restricted', 'EmployeeController@index')->name('list');
 
-Route::get('/restricted/order', 'ListController@order')->name('order');
+Route::get('/restricted/employees/order', 'EmployeeController@order')->name('order');
 
-Route::get('/restricted/search', 'ListController@search')->name('search');
+Route::get('/restricted/employees/search', 'EmployeeController@search')->name('search');
+
+Route::resource('/restricted/employees', 'EmployeeController');

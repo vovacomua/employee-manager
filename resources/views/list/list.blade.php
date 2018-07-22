@@ -12,13 +12,22 @@
 	
 	@include ('layouts.errors')
 
+	@if (\Session::has('success'))
+      <div class="alert alert-success mt-3">
+          <p>{{ \Session::get('success') }}</p>
+      </div><br />
+ 	@endif
+
+ 	<a href="{{action('EmployeeController@create')}}" class="btn btn-success mt-3 mb-3"> + Create New Employee </a>
+
 	<table class="table table-striped">
 
 	  <thead>
 	    <tr>
 
-	      <th scope="col">ID  	<a href="#" class="order" data-values="field=id&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
-	      						<a href="#" class="order" data-values="field=id&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      <th scope="col">ID 	<div>	<a href="#" class="order" data-values="field=id&order=asc"><i class="fas fa-arrow-alt-circle-up"></i></a>
+	      								<a href="#" class="order" data-values="field=id&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      						</div>
 	      	<form class="search">
 	      		<input type="hidden" name="search_field" value="id">
 				<div class="input-group mb-3">
@@ -30,8 +39,9 @@
 	      	</form>
 	      </th>
 
-	      <th scope="col">BOSS ID   <a href="#" class="order" data-values="field=parent_id&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
-	      							<a href="#" class="order" data-values="field=parent_id&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      <th scope="col">BOSS ID 	<div>	<a href="#" class="order" data-values="field=parent_id&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
+	      									<a href="#" class="order" data-values="field=parent_id&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      							</div>
 	      	<form class="search">
 	      		<input type="hidden" name="search_field" value="parent_id">
 				<div class="input-group mb-3">
@@ -43,8 +53,9 @@
 	      	</form>
 	      </th>
 
-	      <th scope="col">FULL NAME  <a href="#" class="order" data-values="field=full_name&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
-									 <a href="#" class="order" data-values="field=full_name&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      <th scope="col">FULL NAME  <div>	<a href="#" class="order" data-values="field=full_name&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
+									 		<a href="#" class="order" data-values="field=full_name&order=desc"><i class="fa fa-arrow-circle-down"></i></a>
+									 </div>
 	      	<form class="search">
 	      		<input type="hidden" name="search_field" value="full_name">
 				<div class="input-group mb-3">
@@ -56,8 +67,9 @@
 	      	</form>
 	      </th>
 
-	      <th scope="col">POSITION  <a href="#" class="order" data-values="field=position&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
-	      							<a href="#" class="order" data-values="field=position&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      <th scope="col">POSITION <div>	<a href="#" class="order" data-values="field=position&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
+	      									<a href="#" class="order" data-values="field=position&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      							</div>
 	      	<form class="search">
 	      		<input type="hidden" name="search_field" value="position">
 				<div class="input-group mb-3">
@@ -69,8 +81,9 @@
 	      	</form>
 	      </th>
 
-	      <th scope="col">STARTED  <a href="#" class="order" data-values="field=start_date&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
-	      						   <a href="#" class="order" data-values="field=start_date&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      <th scope="col">STARTED <div>		<a href="#" class="order" data-values="field=start_date&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
+	      						   			<a href="#" class="order" data-values="field=start_date&order=desc"><i class="fa fa-arrow-circle-down"></i></a>
+	      						  </div>
 	      	<form class="search">
 	      		<input type="hidden" name="search_field" value="start_date">
 				<div class="input-group mb-3">
@@ -82,8 +95,9 @@
 	      	</form>
 	      </th>
 
-	      <th scope="col">SALARY  <a href="#" class="order" data-values="field=salary&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
-	      						  <a href="#" class="order" data-values="field=salary&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
+	      <th scope="col">SALARY <div> 	<a href="#" class="order" data-values="field=salary&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
+	      						 		<a href="#" class="order" data-values="field=salary&order=desc"><i class="fa fa-arrow-circle-down"></i></a>
+	      						</div>
 	      	<form class="search">
 	      		<input type="hidden" name="search_field" value="salary">
 				<div class="input-group mb-3">
@@ -94,6 +108,11 @@
 				</div>
 	      	</form>
 	      </th>
+
+	      <th scope="col"></th>
+
+	      <th scope="col"></th>
+
 
 	    </tr>
 
@@ -111,6 +130,18 @@
 	        <td> {{ $employee->position }} </td>
 	        <td> {{ $employee->start_date }} </td>
 	        <td> {{ $employee->salary }} </td>
+
+	        <td>
+	        	<a href="{{action('EmployeeController@edit', $employee->id)}}" class="btn btn-warning"> <i class="fas fa-edit"></i> </a>
+	        </td>
+
+	        <td>
+		        <form action="{{action('EmployeeController@destroy', $employee->id)}}" method="post">
+		          {{csrf_field()}}
+		          <input name="_method" type="hidden" value="DELETE">
+		          <button class="btn btn-danger" type="submit"> <i class="far fa-trash-alt"></i> </button>
+		        </form>
+	        </td>
 
 	    </tr>
 
