@@ -25,7 +25,9 @@
 	  <thead>
 	    <tr>
 
-	      <th scope="col">ID 	<div>	<a href="#" class="order" data-values="field=id&order=asc"><i class="fas fa-arrow-alt-circle-up"></i></a>
+	      <th scope="col"></th>
+
+	      <th scope="col">ID 	<div>	<a href="#" class="order" data-values="field=id&order=asc"><i class="fa fa-arrow-circle-up"></i></a>
 	      								<a href="#" class="order" data-values="field=id&order=desc"><i class="fa fa-arrow-circle-down"></i></a>		
 	      						</div>
 	      	<form class="search">
@@ -113,7 +115,6 @@
 
 	      <th scope="col"></th>
 
-
 	    </tr>
 
 	  </thead>
@@ -124,6 +125,7 @@
 
 	    <tr>
 
+	    	<td> <img src="{{((intval($employee->has_photo) == 1) ? asset('photos/'.$employee->id.'.jpg') : asset('photos/no-photo.jpg'))}}" style="max-height:40px; max-width:40px"></td>
 	        <td> {{ $employee->id }} </td>
 	        <td> {{ $employee->parent_id }} </td>
 	        <td> {{ $employee->full_name }} </td>

@@ -54,20 +54,30 @@ class EmployeeController extends Controller
             'full_name' => 'required|max:255',
             'position'  => 'required|max:255',
             'start_date'=> 'required|date',
-            'salary'    => 'required|regex:/^\d{1,5}(\.\d{2})?$/'
+            'salary'    => 'required|regex:/^\d{1,5}(\.\d{2})?$/',
+            'photo'     => 'nullable|mimes:jpeg'
         ]);
+
+        $has_photo = (isset($request->photo) ? 1 : 0);
 
         $employee = Employee::create([
                     'full_name' => $request->input('full_name'), 
                     'position' => $request->input('position'), 
                     'start_date' => $request->input('start_date'), 
-                    'salary' => $request->input('salary')
+                    'salary' => $request->input('salary'),
+                    'has_photo' => $has_photo
                     ]); 
         
         if ($request->has('parent_id')){
             $boss = Employee::find($request->input('parent_id'));
             $employee->makeChildOf($boss);
         }
+
+        if ($has_photo){
+            $photoName = $employee->id.'.jpg';
+            $request->photo->move(public_path('photos'), $photoName);   
+        }
+
 
         return redirect('restricted')->with('success','New Employee has been created.');
     }
@@ -112,8 +122,11 @@ class EmployeeController extends Controller
             'full_name' => 'required|max:255',
             'position'  => 'required|max:255',
             'start_date'=> 'required|date',
-            'salary'    => 'required|regex:/^\d{1,5}(\.\d{2})?$/'
+            'salary'    => 'required|regex:/^\d{1,5}(\.\d{2})?$/',
+            'photo'     => 'nullable|mimes:jpeg'
         ]);
+
+        $has_photo = (isset($request->photo) ? 1 : 0);
 
         $employee = Employee::find($id);
 
@@ -121,6 +134,7 @@ class EmployeeController extends Controller
         $employee->position = $request->input('position');
         $employee->start_date = $request->input('start_date');
         $employee->salary = $request->input('salary');
+        $employee->has_photo = $has_photo;
         
         $employee->save();
 
@@ -146,6 +160,11 @@ class EmployeeController extends Controller
 
             }
 
+        }
+
+        if ($has_photo){
+            $photoName = $employee->id.'.jpg';
+            $request->photo->move(public_path('photos'), $photoName);
         }
 
         return redirect('restricted')->with('success', 'Employee has been updated.');
@@ -212,8 +231,11 @@ class EmployeeController extends Controller
                     $url_destroy = action('EmployeeController@destroy', $row->id);
                     $token = csrf_field();
 
+                    $photo = ((intval($row->has_photo) == 1) ? asset('photos/'.$row->id.'.jpg') : asset('photos/no-photo.jpg'));
+
                    $output .= '
                     <tr>
+                     <td><img src="'.$photo.'" style="max-height:40px; max-width:40px"></td>
                      <td>'.$row->id.'</td>
                      <td>'.$row->parent_id.'</td>
                      <td>'.$row->full_name.'</td>
@@ -243,7 +265,7 @@ class EmployeeController extends Controller
 
             $output = '
                <tr>
-                <td align="center" colspan="8">No Data Found</td>
+                <td align="center" colspan="9">No Data Found</td>
                </tr>
                ';
 

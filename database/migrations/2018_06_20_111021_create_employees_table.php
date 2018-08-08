@@ -30,6 +30,8 @@ class CreateEmployeesTable extends Migration {
       $table->date('start_date');
       $table->decimal('salary', 7, 2);
 
+      $table->boolean('has_photo')->default(false);
+
       $table->timestamps();
     });
   }

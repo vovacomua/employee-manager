@@ -10,7 +10,7 @@
   @endif
 
   <h2>Update Employee</h2><br  />
-  <form method="post" action="{{action('EmployeeController@update', $id)}}"> 
+  <form method="post" action="{{action('EmployeeController@update', $id)}}" enctype="multipart/form-data"> 
   	{{csrf_field()}}
     <input name="_method" type="hidden" value="PATCH">
 
@@ -51,6 +51,22 @@
       <div class="form-group col-md-4">
         <label for="salary">SALARY:</label>
         <input type="text" class="form-control" name="salary" value="{{$employee->salary}}" pattern="^\d{1,5}(\.\d{2})?$" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+          <img src="{{((intval($employee->has_photo) == 1) ? asset('photos/'.$employee->id.'.jpg') : asset('photos/no-photo.jpg'))}}" style="max-height:300px">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="form-group col-md-4">
+        <label for="photo">PHOTO (optional, only .jpeg):</label>
+        <input type="file" class="form-control" name="photo">
       </div>
     </div>
 

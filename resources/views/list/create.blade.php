@@ -5,7 +5,7 @@
 
 
   <h2>Create New Employee</h2><br  />
-  <form method="post" action="{{url('restricted/employees')}}"> 
+  <form method="post" action="{{url('restricted/employees')}}" enctype="multipart/form-data">
   	{{csrf_field()}}
 
     <div class="row">
@@ -45,6 +45,14 @@
       <div class="form-group col-md-4">
         <label for="salary">SALARY:</label>
         <input type="text" class="form-control" name="salary" pattern="^\d{1,5}(\.\d{2})?$" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="form-group col-md-4">
+        <label for="photo">PHOTO (optional, only .jpeg):</label>
+        <input type="file" class="form-control" name="photo">
       </div>
     </div>
 
