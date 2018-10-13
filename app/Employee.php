@@ -18,6 +18,10 @@ class Employee extends Node {
 
     protected $visible = ['id', 'children', 'full_name', 'position', 'start_date', 'salary', 'text'];
 
+  protected $events = [
+        'deleting' => \App\Events\EmployeeDeleting::class,
+   ];
+
   //////////////////////////////////////////////////////////////////////////////
 
   //
