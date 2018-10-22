@@ -16,11 +16,18 @@ class Employee extends Node {
    */
   protected $table = 'employees';
 
-    protected $visible = ['id', 'children', 'full_name', 'position', 'start_date', 'salary', 'text'];
+  protected $appends = ['text'];
+  protected $visible = ['id', 'children', 'text'];
+  
 
   protected $events = [
         'deleting' => \App\Events\EmployeeDeleting::class,
    ];
+
+  public function getTextAttribute($value)
+    {
+         return "{$this->full_name} {$this->position}";
+    }
 
   //////////////////////////////////////////////////////////////////////////////
 

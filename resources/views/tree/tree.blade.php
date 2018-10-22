@@ -27,16 +27,18 @@
 
 	
 	  <script>
-	    $(function() {
-	      $('#container').jstree({
-	        'core' : {
-	          'data' : {
-	            "url" : "{{ url('/showtree') }}",
-	            "dataType" : "json" // needed only if you do not supply JSON headers
-	          }
-	        }
-	      });
-	    });
+		$(function() {
+		  $('#container').jstree({
+		    'core' : {
+		      'data' : {
+		      	"url" : "{{ url('/showtree/?lazy') }}",
+		        "data" : function (node) {
+		          return { "id" : node.id };
+		        }
+		      }
+		    }
+		  });
+		});
 	  </script>
 
 @endsection

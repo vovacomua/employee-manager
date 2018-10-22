@@ -16,26 +16,45 @@ class TreeController extends Controller
 	}
 
 
-	public function showTree()
+	public function showTree(Request $request)
 
 	{
-		$tree = Employee::selectRaw('*, CONCAT(full_name, ", ",  position) AS text')->get()->toHierarchy();
+		if ($request->id > 0){
+			return $this->lazyLoadSecondLevel($request->id);
+		} else {
+			return $this->lazyLoadFirstLevel();
+		}
 
-		$tree = $this->formatForTreeJs($tree);
+	}
+
+	private function lazyLoadFirstLevel()
+	{
+		$tree = Employee::limitDepth(2)->get()->toHierarchy();
+		$tree = $tree->values();
+
+		foreach ($tree as $id => $value) {
+			foreach ($value->children as $id2 => $value2) {
+				if (count($value2->children) > 0){	
+						unset($value2->children);
+						$value2->children = true;
+					} else {
+						unset($value2->children);
+					}
+				
+			}
+		}
 
 		return $tree;
 
 	}
 
-	private function formatForTreeJs($data) 
-
+	private function lazyLoadSecondLevel($id)
 	{
-		$temp = [];
-		foreach ($data as $id => $value) {
-			$temp[] = $value;
-		}
+		$boss = Employee::find($id);
+		$tree = $boss->getDescendants()->toHierarchy();
+		$tree = $tree->values();
+		return $tree;
 
-		return $temp;
 	}
 
 }
