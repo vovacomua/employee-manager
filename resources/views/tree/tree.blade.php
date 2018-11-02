@@ -5,6 +5,8 @@
 
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css" />
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/jstree.min.js"></script>
+	
+	@include ('tree.js')
 
 @endsection
 
@@ -24,21 +26,5 @@
       </div>
 
     </div>
-
-	
-	  <script>
-		$(function() {
-		  $('#container').jstree({
-		    'core' : {
-		      'data' : {
-		      	"url" : "{{ url('/showtree/?lazy') }}",
-		        "data" : function (node) {
-		          return { "id" : node.id };
-		        }
-		      }
-		    }
-		  });
-		});
-	  </script>
 
 @endsection

@@ -14,6 +14,7 @@
 Route::get('/', 'TreeController@index')->name('home');
 
 Route::get('/showtree', 'TreeController@showTree');
+Route::get('/rebasetree', 'TreeController@rebaseTree');
 
 
 
